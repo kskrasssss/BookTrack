@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Каталог книг</title>
-</head>
-<body>
-    <h1>Каталог книг</h1>
+<h1>Каталог книг</h1>
 
-    {% for book in books %}
-        <div>
-            <h3>{{ book.title }}</h3>
-            <p>Автор: {{ book.author }}</p>
-            <p>Статус: {{ book.status }}</p>
-            <p>Оцінка: {{ book.rating }}</p>
-            <p>Нотатки: {{ book.notes }}</p>
-            <hr>
-        </div>
-    {% endfor %}
+<h2>📘 Хочу прочитати</h2>
+{% for book in want %}
+    <p>{{ book.title }} — {{ book.author }}</p>
+{% empty %}
+    <p>Немає книг</p>
+{% endfor %}
 
-</body>
-</html>
+<h2>📖 Читаю</h2>
+{% for book in reading %}
+    <p>{{ book.title }} — {{ book.author }}</p>
+{% empty %}
+    <p>Немає книг</p>
+{% endfor %}
+
+<h2>✅ Прочитано</h2>
+{% for book in done %}
+    <p>{{ book.title }} — {{ book.author }}</p>
+{% empty %}
+    <p>Немає книг</p>
+{% endfor %}

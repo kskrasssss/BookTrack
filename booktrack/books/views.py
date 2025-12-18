@@ -6,4 +6,12 @@ books = [
 ]
 
 def catalog_view(request):
-    return render(request, "catalog.html", {"books": books})
+    want = [b for b in books if b["status"] == "want"]
+    reading = [b for b in books if b["status"] == "reading"]
+    done = [b for b in books if b["status"] == "done"]
+
+    return render(request, "catalog.html", {
+        "want": want,
+        "reading": reading,
+        "done": done
+    })
