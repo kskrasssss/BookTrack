@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Каталог книг</title>
+</head>
+<body>
+    <h1>Каталог книг</h1>
+
+    {% for book in books %}
+        <div>
+            <h3>{{ book.title }}</h3>
+            <p>Автор: {{ book.author }}</p>
+            <p>Статус: {{ book.status }}</p>
+            <p>Оцінка: {{ book.rating }}</p>
+            <p>Нотатки: {{ book.notes }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
