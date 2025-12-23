@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Вхід — BookTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .login-card { width: 100%; max-width: 400px; padding: 2rem; border-radius: 15px; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #0d6efd; border: none; border-radius: 8px; padding: 10px; width: 100%; }
+        .form-control { border-radius: 8px; margin-bottom: 1rem; }
+        .brand-logo { font-size: 2rem; font-weight: bold; color: #0d6efd; text-align: center; margin-bottom: 1.5rem; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="brand-logo">BookTrack</div>
+    <h4 class="text-center mb-4">Вхід в акаунт</h4>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Логін</label>
+            <input type="text" name="username" class="form-control" required placeholder="Ваш логін">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input type="password" name="password" class="form-control" required placeholder="********">
+        </div>
+
+        {% if form.errors %}
+            <div class="alert alert-danger" style="font-size: 0.9rem;">
+                Логін або пароль невірні.
+            </div>
+        {% endif %}
+
+        <button type="submit" class="btn btn-primary">Увійти</button>
+    </form>
+    
+    <div class="text-center mt-3">
+        <small class="text-muted">Немає акаунта? <a href="/register/">Зареєструватися</a></small>
+    </div>
+    <div class="text-center mt-2">
+        <a href="/" class="text-decoration-none small">← На головну</a>
+    </div>
+</div>
+
+</body>
+</html>

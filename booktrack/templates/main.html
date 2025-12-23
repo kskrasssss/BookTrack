@@ -1,0 +1,20 @@
+<div class="card">
+    <a href="{% url 'book_detail' book.id %}" style="text-decoration: none;">
+        <img src="{{ book.image_url|default:'https://via.placeholder.com/300x400' }}" alt="{{ book.title }}">
+    </a>
+    
+    <div class="badges">
+        <div class="badge">Книга</div>
+    </div>
+
+    <a href="{% url 'book_detail' book.id %}" style="text-decoration: none; color: inherit;">
+        <div class="title">{{ book.title }}</div>
+    </a>
+    
+    <div class="author">{{ book.author }}</div>
+    <div class="price">{{ book.price }} грн</div>
+    
+    <div class="btn-group">
+        ...
+    </div>
+</div>

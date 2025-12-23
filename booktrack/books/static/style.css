@@ -1,0 +1,122 @@
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: none;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 4px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+}
+
+
+
+.author {
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: auto;
+}
+.buy {
+  margin-top: 8px;
+  background: #1a5cff;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: white;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile {
+  position: relative;
+}
+
+.profile-btn {
+  background: #f2f4f7;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-btn:hover {
+  background: #e4e7ec;
+}
+
+.profile-menu {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  width: 180px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  display: none;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.profile-menu a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+}
+
+.profile-menu a:hover {
+  background: #f5f5f5;
+}
+
+.profile-menu hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 4px 0;
+}
+
+.profile:hover .profile-menu {
+  display: block;
+}
