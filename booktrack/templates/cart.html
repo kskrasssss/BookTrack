@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Мій кошик — Book Tracker</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        body { background: #f8f9fa; padding: 20px; }
+        .cart-container { max-width: 800px; margin: 50px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .item-details { display: flex; align-items: center; gap: 15px; }
+        .item-details img { width: 50px; height: 70px; object-fit: cover; border-radius: 5px; }
+        .btn-checkout { background: #10b981; color: white; display: block; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 20px; font-size: 18px; }
+        .btn-remove { color: #ff4d4d; text-decoration: none; font-size: 13px; font-weight: bold; }
+        .total-section { text-align: right; margin-top: 20px; font-size: 22px; font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container">
+        <h1 style="margin-bottom: 20px;">🛒 Ваш кошик</h1>
+        
+        {% for item in cart_items %}
+            <div class="cart-item">
+                <div class="item-details">
+                    <img src="{{ item.book.image_url|default:'https://via.placeholder.com/150x200' }}">
+                    <div>
+                        <div style="font-weight: bold;">{{ item.book.title }}</div>
+                        <div style="color: #666; font-size: 14px;">{{ item.book.price }} грн x {{ item.quantity }}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-weight: bold;">{{ item.total_price }} грн</div>
+                    <a href="{% url 'remove_from_cart' item.id %}" class="btn-remove">Видалити</a>
+                </div>
+            </div>
+        {% empty %}
+            <div style="text-align: center; padding: 30px;">
+                <p style="color: #999;">Кошик порожній</p>
+            </div>
+        {% endfor %}
+
+        {% if cart_items %}
+            <div class="total-section">Разом: {{ total }} грн</div>
+            <a href="{% url 'checkout' %}" class="btn-checkout">Оформити замовлення</a>
+        {% endif %}
+
+        <a href="{% url 'home' %}" style="display: block; text-align: center; margin-top: 20px; color: #1a5cff; text-decoration: none; font-weight: 600;">← Продовжити покупки</a>
+    </div>
+
+</body>
+</html>

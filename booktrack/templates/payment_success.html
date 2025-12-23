@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Оплата успішна!</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; margin: 0; }
+        .success-card { background: white; padding: 50px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 400px; }
+        .icon { font-size: 80px; margin-bottom: 20px; }
+        h1 { color: #10b981; margin-bottom: 15px; }
+        p { color: #666; margin-bottom: 30px; }
+        .btn-home { background: #1a5cff; color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="success-card">
+        <div class="icon">🎉</div>
+        <h1>Оплата успішна!</h1>
+        <p>Дякуємо за покупку. Ваші книги вже чекають на вас!</p>
+        <a href="{% url 'home' %}" class="btn-home">На головну</a>
+    </div>
+</body>
+</html>

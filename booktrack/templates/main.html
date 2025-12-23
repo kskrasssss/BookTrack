@@ -1,20 +1,101 @@
-<div class="card">
-    <a href="{% url 'book_detail' book.id %}" style="text-decoration: none;">
-        <img src="{{ book.image_url|default:'https://via.placeholder.com/300x400' }}" alt="{{ book.title }}">
-    </a>
-    
-    <div class="badges">
-        <div class="badge">Книга</div>
-    </div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Tracker — Каталог</title>
+    <style>
+        /* Базові стилі та обнулення */
+        * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; }
+        body { background: #f8f9fa; color: #333; padding: 20px; line-height: 1.5; }
 
-    <a href="{% url 'book_detail' book.id %}" style="text-decoration: none; color: inherit;">
-        <div class="title">{{ book.title }}</div>
-    </a>
-    
-    <div class="author">{{ book.author }}</div>
-    <div class="price">{{ book.price }} грн</div>
-    
-    <div class="btn-group">
-        ...
+        /* ОНОВЛЕНИЙ УНІФІКОВАНИЙ ХЕДЕР */
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: white; padding: 15px 40px; border-radius: 16px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 40px; 
+        }
+        .logo { font-size: 22px; font-weight: bold; color: #1a5cff; text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .nav-links a:hover { color: #1a5cff; }
+        
+        /* Стильна кнопка кошика */
+        .btn-cart-header { 
+            background: #1a5cff; color: white !important; padding: 10px 20px; 
+            border-radius: 12px; font-weight: bold; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-cart-header:hover { background: #0044ee; transform: translateY(-2px); }
+        .btn-logout-link { background: none; border: none; color: #ff4d4d !important; cursor: pointer; font: inherit; font-weight: 600; text-decoration: underline; padding: 0; }
+
+        /* ТВОЇ СТИЛІ БЕЗ ЗМІН */
+        h2 { margin: 30px 0 20px 10px; font-size: 24px; color: #222; }
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.3s ease; border: 1px solid #eee; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 10px; margin-bottom: 12px; cursor: pointer; }
+        .badges { display: flex; gap: 6px; margin-bottom: 8px; }
+        .badge { background: #e6f0ff; color: #1a5cff; font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: bold; text-transform: uppercase; }
+        .title { font-weight: bold; font-size: 16px; margin-bottom: 4px; color: #111; height: 40px; overflow: hidden; }
+        .author { font-size: 14px; color: #777; margin-bottom: 12px; }
+        .price { font-size: 20px; font-weight: 800; color: #1a5cff; margin-bottom: 15px; }
+        .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        .btn-action { font-size: 13px; padding: 10px; border-radius: 10px; text-align: center; text-decoration: none; font-weight: 600; transition: 0.2s; border: none; cursor: pointer; }
+        .btn-wish { background: #f0f4ff; color: #1a5cff; border: 1px solid #d0e0ff; }
+        .btn-wish:hover { background: #1a5cff; color: white; }
+        .btn-reading { background: #fff9e6; color: #f59e0b; border: 1px solid #ffeeba; }
+        .btn-reading:hover { background: #f59e0b; color: white; }
+        .btn-read { background: #ecfdf5; color: #10b981; border: 1px solid #d1fae5; }
+        .btn-read:hover { background: #10b981; color: white; }
+        .auth-notice { font-size: 12px; color: #999; text-align: center; margin-top: 10px; }
+        @media (max-width: 600px) { .products { grid-template-columns: 1fr; } .header { padding: 15px 20px; flex-direction: column; gap: 10px; } }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="{% url 'home' %}" class="logo">📚 Book Tracker</a>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Каталог</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'cart' %}" class="btn-cart-header">🛒 Кошик</a>
+            <a href="{% url 'profile' %}">Мій профіль</a>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout-link">Вийти</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Увійти</a>
+            <a href="{% url 'register' %}" style="color: #1a5cff; font-weight: bold;">Реєстрація</a>
+        {% endif %}
     </div>
+</header>
+
+<h2>📚 Каталог книг</h2>
+<div class="products">
+    {% for book in books %}
+    <div class="card">
+        <a href="{% url 'book_detail' book.id %}">
+            <img src="{{ book.image_url|default:'https://via.placeholder.com/300x400' }}" alt="{{ book.title }}">
+        </a>
+        <div class="badges"><div class="badge">Книга</div></div>
+        <a href="{% url 'book_detail' book.id %}" style="text-decoration: none; color: inherit;">
+            <div class="title">{{ book.title }}</div>
+        </a>
+        <div class="author">{{ book.author }}</div>
+        <div class="price">{{ book.price }} грн</div>
+        <div class="btn-group">
+            {% if user.is_authenticated %}
+                <a href="?add={{ book.id }}&status=wishlist" class="btn-action btn-wish">❤ Хочу прочитати</a>
+                <a href="?add={{ book.id }}&status=reading" class="btn-action btn-reading">📖 Читаю зараз</a>
+                <a href="?add={{ book.id }}&status=read" class="btn-action btn-read">✅ Прочитано</a>
+            {% else %}
+                <p class="auth-notice">Увійдіть, щоб додати книгу</p>
+                <a href="{% url 'login' %}" class="btn-action btn-wish">Увійти</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
 </div>
+</body>
+</html>
